@@ -98,7 +98,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/languages" class="nav-link">
+                    <a href="/languages" target="_blank" class="nav-link">
                         <i class="nav-icon fas fa-language"></i>                        <p>
                             Dil Çevirileri
                         </p>
