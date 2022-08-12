@@ -40,7 +40,7 @@ FROM
 	ON 
 		addresses.user_id = users.id");
 
-        return view('backend.order.index',['data'=>$data]);
+        return view('Backend.order.index',['data'=>$data]);
     }
 
     public function show($id)
@@ -77,7 +77,7 @@ WHERE
 	orders.id = $id");
 
 
-        return view('backend.order.detail',['data'=>$data,'order'=>$order]);
+        return view('Backend.order.detail',['data'=>$data,'order'=>$order]);
 
 
 

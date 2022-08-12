@@ -4,7 +4,7 @@
     <div class="content-wrapper pt-2" >
         <section class="content">
             <div class="card">
-                <div class="card-header">Ürün Listesi</h3>
+                <div class="card-header">Ürün Listessi</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
