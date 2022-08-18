@@ -25,12 +25,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[HomeController::class,'index'])->name('index');
-Route::get('/category/{id}/{slug}',[HomeController::class,'categoryproducts'])->name('categoryproducts');
+Route::get('/category/{slug}/{id}',[HomeController::class,'categoryproducts'])->name('categoryproducts');
 Route::get('/details/{name}/{id}',[HomeController::class,'productdetail'])->name('product-detail');
 Route::get('/login',[HomeController::class,'login'])->name('Userlogin');
 Route::post('/checkLogin',[HomeController::class,'checkLogin'])->name('userCheckLogin');
 Route::post('/register',[HomeController::class,'register'])->name('userRegister');
-Route::get('/category/{id}/{slug}',[HomeController::class,'categoryproducts'])->name('categoryproducts');
+//Route::get('/category/{id}/{slug}',[HomeController::class,'categoryproducts'])->name('categoryproducts');
 Route::get('payment', [PaypalPaymentController::class,'index'])->name("paypal.index");
 Route::post('charge', [PaypalPaymentController::class,'charge'])->name("paypal.charge");
 Route::get('success', [PaypalPaymentController::class,'success'])->name("paypal.success");

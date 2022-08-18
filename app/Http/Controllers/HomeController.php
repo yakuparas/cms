@@ -37,8 +37,9 @@ class HomeController extends Controller
         return $catList = Category::where('parent_id', '=', 0)->with('children')->get();
     }
 
-    public function categoryproducts($id)
+    public function categoryproducts($slug,$id)
     {
+
         $data = Product::where('categoryID', $id)->get();
 
 
