@@ -4,7 +4,7 @@
     <div class="content-wrapper pt-2" >
         <section class="content">
             <div class="card">
-                <div class="card-header">Ürün Listessi</h3>
+                <div class="card-header">Ürün Listesi</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -83,7 +83,13 @@
         }
         $(function () {
             $("#example2").DataTable({
-
+                language: {
+                    lengthMenu: 'dfdf _MENU_ records per page',
+                    zeroRecords: 'Nothing found - sorry',
+                    info: 'Showiss _PAGE_ of _PAGES_',
+                    infoEmpty: 'No records available',
+                    infoFiltered: '(filtered from _MAX_ total records)',
+                },
                 lengthChange: false,
                 autoWidth: true,
                 processing: true,

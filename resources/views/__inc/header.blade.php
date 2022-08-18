@@ -37,8 +37,7 @@
                                         @endforeach
                                         <li><a href="{{route('zaunplanner')}}">{{__('site.menu.planner')}}</a></li>
 
-                                        <li><a >Hakkımızda</a></li>
-                                        <li><a >İletişim</a></li>
+
 
                                     </ul>
                                 </nav>

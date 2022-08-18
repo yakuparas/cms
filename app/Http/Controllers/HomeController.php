@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductOptions;
@@ -308,6 +309,23 @@ class HomeController extends Controller
 
 
         return redirect()->route('cart.show', [auth()->check() ? auth()->id() : session()->getId()]);
+
+
+
+
+    }
+
+    public function pageview($slug)
+    {
+
+        $data=Page::where('slug',$slug)->get();
+
+
+        if (count($data)<1)
+            abort('404');
+
+
+        return view('page',['data'=>$data]);
 
 
 

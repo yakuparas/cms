@@ -24,5 +24,13 @@ return array (
         'uyeol' => 'Üye Ol',
         'hesabim' => 'Hesabım',
         'cikisyap' => 'Çıkış Yap',
-    ]
+    ],
+    'footer'=>[
+        'information'=>'Bilgiler',
+        'about'=>'Hakkımızda',
+        'deliveryinformation'=>'Teslimat Bilgisi',
+        'privacypolicy'=>'Gizlilik Politikası',
+        'distancesalescontract'=>'Mesafeli Satış Sözleşmesi',
+        'category'=>'Ürün Kategori',
+        ]
 );

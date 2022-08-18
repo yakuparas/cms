@@ -74,21 +74,27 @@
                 <input type="hidden" name="kapigenislik" value="0" id="kapigenislik">
                 <input type="hidden" name="kapisayisi" value="0" id="kapisayisi">
                 <h2 style="text-align: center">Zau Planner</h2>
-                <div class="tab"><h3>Çit Uzunluğu</h3>
-                    <p>                            <input type="number" name="uzunluk" id="uzunluk">
+                <div class="tab"><h3>Çit Uzunluğu <b>(mm)</b></h3>
+                    <p>                            <input style="width:50%" type="number" name="uzunluk" id="uzunluk">
                     </p>
                 </div>
                 <div class="tab"><h3>Çit Tipi Seçiniz:</h3>
                     
                     <div class="row">
 
-                        @foreach($data as $rs)
+                        @foreach($data as $key=>$rs)
                             <div class="col-md-4">
                                 <div class="card" style="width: 18rem;">
                                     <img class="card-img-top" src="{{asset($rs->image)}}" alt="Card image cap">
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{$rs->name}}</h5>
-                                        <input type="radio" onclick="variantsfetch({{$rs->id}})" name="pid" value="{{$rs->id}}">
+
+                                        <b>Seçiniz</b>
+
+                                            <input type="radio" class="pid"  onclick="variantsfetch({{$rs->id}})" id="pid" name="pid" value="{{$rs->id}}">
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +121,7 @@
                                     <img class="card-img-top" src="{{asset($rs->image)}}" alt="Card image cap">
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{$rs->name}}</h5>
-                                        <input type="radio" onclick="babasec({{$rs->id}})" name="pid" value="{{$rs->id}}">
+                                        <input type="radio" class="bpid" onclick="babasec({{$rs->id}})"  name="pid" value="{{$rs->id}}">
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +142,7 @@
                                     <img class="card-img-top" src="{{asset($rs->image)}}" alt="Card image cap">
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{$rs->name}}</h5>
-                                        <input type="checkbox" data-kapiid="{{$rs->productID}}"  data-width="{{$rs->width}}" name="kapix" value="{{$rs->id}}">
+                                        <input class="kpid" type="checkbox" data-kapiid="{{$rs->productID}}"  data-width="{{$rs->width}}" name="kapix" value="{{$rs->id}}">
                                     </div>
                                 </div>
                             </div>
@@ -148,15 +154,18 @@
 
                     </div>
                 </div>
-                <div class="tab">Hesaplama Sonucu:
-                    <div class="row" id="sonuc">
-                        fgf
+                <div class="tab">
+                    <div class="row">
+                        <div class="col-md-4" id="sonuc">
+
+                        </div>
+
                     </div>
                 </div>
                 <div style="overflow:auto;">
                     <div style="float:right;">
-                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Geri</button>
-                        <button type="button" id="nextBtn" onclick="nextPrev(1)">İleri</button>
+                        <button type="button" id="prevBtn" class="btn btn-solid btn-xs"  onclick="nextPrev(-1)">Geri</button>
+                        <button type="button" id="nextBtn" class="btn btn-solid btn-xs" onclick="nextPrev(1)">İleri</button>
                     </div>
                 </div>
                 <!-- Circles which indicates the steps of the form: -->
@@ -197,6 +206,7 @@
                 $("#babaadet").val(babaadet);
 
                 var msj='<div class="alert alert-primary" role="alert"><ul class="list-group">';
+                msj+=' <li class="list-group-item text-center">Hesaplama Sonucu:</li>';
                 msj+=' <li class="list-group-item">Çit Uzunluğu : '+(cituzunluk/1000)+' m</li>';
                 msj+=' <li class="list-group-item">Toplam Kapı Sayısı : '+kapisayisi+'</li>';
                 msj+=' <li class="list-group-item">Toplma Kapı Genişliği : '+kapigenislik+'</li>';
@@ -221,25 +231,166 @@
                 document.getElementById("nextBtn").innerHTML = "İleri";
             }
             //... and run a function that will display the correct step indicator:
+
+
             fixStepIndicator(n)
         }
 
         function nextPrev(n) {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
-            // Hide the current tab:
-            x[currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
-            currentTab = currentTab + n;
-            // if you have reached the end of the form...
-            if (currentTab >= x.length) {
-                // ... the form gets submitted:
-                document.getElementById("regForm").submit();
-                return false;
+
+
+            if(currentTab==0)
+            {
+                if($('#uzunluk').length > 0 && $('#uzunluk').val() != '')
+                {
+                    // This function will figure out which tab to display
+                    var x = document.getElementsByClassName("tab");
+                    // Exit the function if any field in the current tab is invalid:
+                    // Hide the current tab:
+                    x[currentTab].style.display = "none";
+                    // Increase or decrease the current tab by 1:
+                    currentTab = currentTab + n;
+                    // if you have reached the end of the form...
+                    if (currentTab >= x.length) {
+                        // ... the form gets submitted:
+                        document.getElementById("regForm").submit();
+                        return false;
+                    }
+                    showTab(currentTab);
+                }
+                else
+                {
+                    alert("Lütfen Çit Uzunluğunu Giriniz");
+                }
+
             }
-            // Otherwise, display the correct tab:
-            showTab(currentTab);
+            else if (currentTab==1)
+            {
+
+                var pid= $(".pid:checked").val();
+               if(pid)
+               {
+                   // This function will figure out which tab to display
+                   var x = document.getElementsByClassName("tab");
+                   // Exit the function if any field in the current tab is invalid:
+                   // Hide the current tab:
+                   x[currentTab].style.display = "none";
+                   // Increase or decrease the current tab by 1:
+                   currentTab = currentTab + n;
+                   // if you have reached the end of the form...
+                   if (currentTab >= x.length) {
+                       // ... the form gets submitted:
+                       document.getElementById("regForm").submit();
+                       return false;
+                   }
+                   showTab(currentTab);
+
+               }
+                else
+                {
+                    alert("Lütfen Çit Tipi Seçiniz");
+                }
+
+            }
+            else if(currentTab==2)
+            {
+                var cpid= $(".cpid:checked").val();
+                if(cpid)
+                {
+                    // This function will figure out which tab to display
+                    var x = document.getElementsByClassName("tab");
+                    // Exit the function if any field in the current tab is invalid:
+                    // Hide the current tab:
+                    x[currentTab].style.display = "none";
+                    // Increase or decrease the current tab by 1:
+                    currentTab = currentTab + n;
+                    // if you have reached the end of the form...
+                    if (currentTab >= x.length) {
+                        // ... the form gets submitted:
+                        document.getElementById("regForm").submit();
+                        return false;
+                    }
+                    showTab(currentTab);
+
+                }
+                else
+                {
+                    alert("Lütfen Çit Seçiniz");
+                }
+            }
+            else if(currentTab==3)
+            {
+                var bpid= $(".bpid:checked").val();
+                if(bpid)
+                {
+                    // This function will figure out which tab to display
+                    var x = document.getElementsByClassName("tab");
+                    // Exit the function if any field in the current tab is invalid:
+                    // Hide the current tab:
+                    x[currentTab].style.display = "none";
+                    // Increase or decrease the current tab by 1:
+                    currentTab = currentTab + n;
+                    // if you have reached the end of the form...
+                    if (currentTab >= x.length) {
+                        // ... the form gets submitted:
+                        document.getElementById("regForm").submit();
+                        return false;
+                    }
+                    showTab(currentTab);
+
+                }
+                else
+                {
+                    alert("Lütfen Baba Seçiniz");
+                }
+            }
+
+            else if(currentTab==4)
+            {
+                var kpid= $(".kpid:checked").val();
+                if(kpid)
+                {
+                    // This function will figure out which tab to display
+                    var x = document.getElementsByClassName("tab");
+                    // Exit the function if any field in the current tab is invalid:
+                    // Hide the current tab:
+                    x[currentTab].style.display = "none";
+                    // Increase or decrease the current tab by 1:
+                    currentTab = currentTab + n;
+                    // if you have reached the end of the form...
+                    if (currentTab >= x.length) {
+                        // ... the form gets submitted:
+                        document.getElementById("regForm").submit();
+                        return false;
+                    }
+                    showTab(currentTab);
+
+                }
+                else
+                {
+                    alert("Lütfen Kapı Seçiniz");
+                }
+            }
+            else
+            {
+                var x = document.getElementsByClassName("tab");
+                // Exit the function if any field in the current tab is invalid:
+                // Hide the current tab:
+                x[currentTab].style.display = "none";
+                // Increase or decrease the current tab by 1:
+                currentTab = currentTab + n;
+                // if you have reached the end of the form...
+                if (currentTab >= x.length) {
+                    // ... the form gets submitted:
+                    document.getElementById("regForm").submit();
+                    return false;
+                }
+                showTab(currentTab);
+            }
+
+
+
+
         }
 
 
@@ -286,7 +437,7 @@
                             variants+='<img class="card-img-top" src="'+results.data[i]['image']+'" alt="Card image cap">';
                             variants+='<div class="card-body text-center">';
                             variants+='<h5 class="card-title">'+results.data[i]['name']+'</h5>';
-                            variants+='<input type="radio" onclick="citsec('+results.data[i]['id']+')" name="pid" value="">';
+                            variants+='<b>Seçiniz</b><input type="radio" class="cpid" onclick="citsec('+results.data[i]['id']+')" name="pid" value="'+results.data[i]['id']+'">';
                             variants+='</div></div></div>';
 
 

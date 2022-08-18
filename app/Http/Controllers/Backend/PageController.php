@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -14,7 +15,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $data=Page::get();
+        return view('Backend.pages.index',['data'=>$data]);
     }
 
     /**
@@ -24,7 +26,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('Backend.pages.add');
+
     }
 
     /**
@@ -35,7 +38,17 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=new Page();
+        $data->title=$request->title;
+        $data->description=$request->description;
+        if ($data->save()) {
+
+            return redirect()->route('Page.list')->with('success','Başarıyla Eklendi.');
+        }
+        else
+        {
+            return redirect()->route('Page.list')->with('error','Hata Oluştu.');
+        }
     }
 
     /**
@@ -57,7 +70,9 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=Page::find($id);
+
+        return view('Backend.pages.edit',['data'=>$data]);
     }
 
     /**
@@ -69,7 +84,19 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data=Page::find($id);
+        $data->title=$request->title;
+        $data->slug=$request->slug;
+        $data->description=$request->description;
+        if ($data->save()) {
+
+
+            return redirect()->route('Page.list')->with('success','Başarıyla Güncellendi.');
+        }
+        else
+        {
+            return redirect()->route('Page.list')->with('error','Güncellenirken Hata Oluştu.');
+        }
     }
 
     /**
@@ -80,6 +107,23 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete=Page::destroy($id);
+
+        // check data deleted or not
+        if ($delete == 1) {
+
+
+            $success = true;
+            $message = "Sayfa Başarıyla Silindi";
+        } else {
+            $success = true;
+            $message = "Sayfa Bulunamadı";
+        }
+
+        //  return response
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 }

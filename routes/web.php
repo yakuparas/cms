@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
@@ -34,6 +35,8 @@ Route::get('payment', [PaypalPaymentController::class,'index'])->name("paypal.in
 Route::post('charge', [PaypalPaymentController::class,'charge'])->name("paypal.charge");
 Route::get('success', [PaypalPaymentController::class,'success'])->name("paypal.success");
 Route::get('error', [PaypalPaymentController::class,'error'])->name("paypal.error");
+
+Route::get('page/{slug}',[HomeController::class,'pageview'])->name('Page.view');
 
 
 Route::get('zaunplanner', [HomeController::class,'zaunplanner'])->name("zaunplanner");
@@ -120,6 +123,17 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
     Route::post('/slider/delete/{id}',[SliderController::class,'destroy'])->name('Slider.delete');
     Route::post('/slider/update/{id}',[SliderController::class,'update'])->name('Slider.update');
     Route::get('/slider/edit/{id}',[SliderController::class,'edit'])->name('Slider.edit');
+
+
+    Route::get('/page',[PageController::class,'index'])->name('Page.list');
+    Route::get('/page/create',[PageController::class,'create'])->name('Page.create');
+    Route::post('/page/store',[PageController::class,'store'])->name('Page.store');
+    Route::post('/page/delete/{id}',[PageController::class,'destroy'])->name('Page.delete');
+    Route::post('/page/update/{id}',[PageController::class,'update'])->name('Page.update');
+    Route::get('/page/edit/{id}',[PageController::class,'edit'])->name('Page.edit');
+
+
+
 
     Route::get('/order',[OrderController::class,'index'])->name('admin.order');
     Route::get('/orderdetail/{id}',[OrderController::class,'show'])->name('admin.orderdetail');

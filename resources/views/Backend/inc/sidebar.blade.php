@@ -66,6 +66,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route("Page.list")}}" class="nav-link">
+                        <i class="nav-icon fas fa-paper-plane"></i>                        <p>
+                           Sayfa Yönetimi
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>                       <p>
                             Blog Yönetimi

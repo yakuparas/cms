@@ -69,15 +69,15 @@
                 <div class="col offset-xl-1">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>my account</h4>
+                            <h4>{{__("site.footer.information")}}</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
-                                <li><a href="#">mens</a></li>
-                                <li><a href="#">womens</a></li>
-                                <li><a href="#">clothing</a></li>
-                                <li><a href="#">accessories</a></li>
-                                <li><a href="#">featured</a></li>
+                                <li><a href="{{route('Page.view',['slug' => 'about'])}}">{{__("site.footer.about")}}</a></li>
+                                <li><a href="{{route('Page.view',['slug' => 'delivery-information'])}}">{{__("site.footer.deliveryinformation")}}</a></li>
+                                <li><a href="{{route('Page.view',['slug' => 'privacy-policy'])}}">{{__("site.footer.privacypolicy")}}</a></li>
+                                <li><a href="{{route('Page.view',['slug' => 'distance-sales-contract'])}}">{{__("site.footer.distancesalescontract")}}</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -85,15 +85,11 @@
                 <div class="col">
                     <div class="sub-title">
                         <div class="footer-title">
-                            <h4>why we choose</h4>
+                            <h4>{{__("site.footer.category")}}</h4>
                         </div>
                         <div class="footer-contant">
                             <ul>
-                                <li><a href="#">shipping & return</a></li>
-                                <li><a href="#">secure shopping</a></li>
-                                <li><a href="#">gallary</a></li>
-                                <li><a href="#">affiliates</a></li>
-                                <li><a href="#">contacts</a></li>
+                            @include("__inc.footermenu")
                             </ul>
                         </div>
                     </div>
