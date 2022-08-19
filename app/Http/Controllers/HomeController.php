@@ -274,6 +274,22 @@ class HomeController extends Controller
     {
 
 
+                for ($i=0;$i<$request->kapisayisi;$i++)
+                {
+
+                    $kvid=explode(",",$request->kapi);
+                    $kq=explode(",",$request->kapiadetx);
+
+
+                    $cart = new Cart();
+                    $cart->user_id = auth()->check() ? auth()->id() : 0;
+                    $cart->session_id = session()->getId();
+                    $cart->product_id = $request->kapiid;
+                    $cart->variant_id =  $kvid[$i];
+                    $cart->quantity = $kq[$i];
+                    $cart->save();
+                }
+
 
 
        $cart = new Cart();
@@ -283,21 +299,6 @@ class HomeController extends Controller
         $cart->variant_id = $request->citvid;
         $cart->quantity = $request->citsayisi;
         $cart->save();
-
-        for ($i=0;$i<$request->kapisayisi;$i++)
-        {
-            $kvid=explode(",",$request->kapi);
-
-
-            $cart = new Cart();
-            $cart->user_id = auth()->check() ? auth()->id() : 0;
-            $cart->session_id = session()->getId();
-            $cart->product_id = $request->kapiid;
-            $cart->variant_id =  $kvid[$i];
-            $cart->quantity = 1;
-            $cart->save();
-        }
-
 
 
         $cart = new Cart();

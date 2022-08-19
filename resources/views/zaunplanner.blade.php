@@ -73,6 +73,7 @@
                 <input type="hidden" name="kapi" value="0" id="kapi">
                 <input type="hidden" name="kapigenislik" value="0" id="kapigenislik">
                 <input type="hidden" name="kapisayisi" value="0" id="kapisayisi">
+                <input type="hidden" name="kapiadetx" value="0" id="kapiadetx">
                 <h2 style="text-align: center">Zau Planner</h2>
                 <div class="tab"><h3>Çit Uzunluğu <b>(mm)</b></h3>
                     <p>                            <input style="width:50%" type="number" name="uzunluk" id="uzunluk">
@@ -142,7 +143,8 @@
                                     <img class="card-img-top" src="{{asset($rs->image)}}" alt="Card image cap">
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{$rs->name}}</h5>
-                                        <input class="kpid" type="checkbox" data-kapiid="{{$rs->productID}}"  data-width="{{$rs->width}}" name="kapix" value="{{$rs->id}}">
+                                        <input   type="number" onchange="setkapiadet({{$rs->id}})" value="1" style="width: 20% !important;" class="kapiadet" name="kapiadet" id="kapiadet-{{$rs->id}}">
+                                        <input class="kpid" id="kpid-{{$rs->id}}" type="checkbox" data-kapiid="{{$rs->productID}}" data-kapisayisi="1"  data-width="{{$rs->width}}" name="kapix" value="{{$rs->id}}">
                                     </div>
                                 </div>
                             </div>
@@ -453,28 +455,48 @@
         }
 
 
+       function setkapiadet(x)
+        {
 
+        $('#kpid-'+x).attr("data-kapisayisi", $('#kapiadet-'+x).val()); //setter
+
+
+        }
 
 
         $('#kapilist').change(function() {
             {
+
                 var genislik=0;
                 var array=[];
+                var arraykapiadet=[];
                 var kapisayisi=0;
                 var kapiid=0;
                 $('#kapilist :checked').each(function() {
 
-                    genislik=genislik+parseInt(($(this).data('width')));
+
+                    genislik=genislik+(parseInt(($(this).data('width')))*parseInt(($('#kapiadet-'+$(this).val()).val())));
                     kapiid=$(this).data('kapiid');
+                    //kapisayisi=kapisayisi+1;
                     kapisayisi=kapisayisi+1;
                     array.push($(this).val());
+                    arraykapiadet.push($('#kapiadet-'+$(this).val()).val());
 
 
                 });
+                console.log(array);
+                console.log("----------------------------------------");
+                console.log("Kapı Sayısı :"+kapisayisi);
+                console.log("Genişlik :"+genislik);
+                console.log("Kapılar :"+array);
+                console.log("Adetler :"+arraykapiadet);
                 $('#kapi').val(array);
+                $('#kapiadetx').val(arraykapiadet);
                 $('#kapiid').val(kapiid);
                 $('#kapigenislik').val(genislik);
                 $('#kapisayisi').val(kapisayisi);
+
+
 
             }
         });
